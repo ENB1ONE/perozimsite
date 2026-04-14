@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframe Opção 1 — Conservadora | PEROZIM</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Comic Sans MS', 'Chalkboard SE', cursive; background: #f5f5f5; color: #333; }
+  
+  /* Legend */
+  .legend { position: fixed; top: 16px; right: 16px; background: #fff; border: 2px solid #999; padding: 12px 16px; border-radius: 4px; z-index: 9999; font-size: 12px; }
+  .legend h4 { margin-bottom: 8px; font-size: 13px; border-bottom: 1px solid #ccc; padding-bottom: 6px; }
+  .badge-reuse { background: #4CAF50; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: bold; display: inline-block; margin-right: 4px; }
+  .badge-new { background: #FF9800; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: bold; display: inline-block; margin-right: 4px; }
+  .legend p { margin: 4px 0; display: flex; align-items: center; gap: 4px; }
+  
+  /* Option title banner */
+  .option-banner { background: #333; color: #fff; text-align: center; padding: 16px; font-size: 14px; }
+  .option-banner h1 { font-size: 18px; margin-bottom: 4px; }
+  .option-banner p { opacity: 0.75; font-size: 12px; }
+  
+  /* Component wrapper */
+  .comp { position: relative; }
+  .comp-badge { position: absolute; top: 4px; right: 4px; padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: bold; z-index: 10; font-family: Arial, sans-serif; }
+  .comp-badge.reuse { background: #4CAF50; color: #fff; }
+  .comp-badge.new { background: #FF9800; color: #fff; }
+  
+  /* Wireframe styles */
+  .wf-box { background: #fff; border: 1px dashed #999; }
+  .wf-gray { background: #e0e0e0; }
+  .wf-dark { background: #333; color: #fff; }
+  .wf-img { background: #ccc; border: 1px solid #999; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; }
+  .wf-btn-primary { background: #555; color: #fff; padding: 10px 20px; border: none; font-family: inherit; font-size: 13px; cursor: default; display: inline-block; }
+  .wf-btn-secondary { background: transparent; color: #333; padding: 10px 20px; border: 2px solid #555; font-family: inherit; font-size: 13px; cursor: default; display: inline-block; }
+  .wf-divider { border: none; border-top: 1px dashed #bbb; margin: 0; }
+  .wf-tag { display: inline-block; background: #e0e0e0; border: 1px solid #bbb; padding: 2px 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  
+  /* Layout */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  
+  /* SECTION: Skip link */
+  .skip-link { display: block; background: #333; color: #fff; text-align: center; padding: 8px; font-size: 12px; border-bottom: 1px solid #666; }
+  
+  /* SECTION: Navbar */
+  .navbar { background: #e0e0e0; border-bottom: 2px solid #bbb; padding: 14px 0; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .brand-box { border: 1px dashed #999; padding: 6px 12px; background: #f5f5f5; }
+  .brand-box p { font-size: 18px; font-weight: bold; }
+  .brand-box span { font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: #666; }
+  .nav-links-wf { display: flex; align-items: center; gap: 24px; }
+  .nav-link-wf { font-size: 13px; border-bottom: 1px dashed #999; padding-bottom: 2px; }
+  
+  /* SECTION: Hero */
+  .hero { background: #555; min-height: 480px; display: flex; align-items: center; padding: 80px 0; position: relative; overflow: hidden; }
+  .hero-img-bg { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, #444, #444 2px, #555 2px, #555 20px); opacity: 0.4; }
+  .hero-content-wf { position: relative; z-index: 2; max-width: 680px; color: #fff; }
+  .hero-tag { background: rgba(255,255,255,0.15); border: 1px dashed rgba(255,255,255,0.4); padding: 4px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 16px; }
+  .hero-title { font-size: 52px; line-height: 1.1; margin-bottom: 16px; }
+  .hero-title em { font-style: italic; opacity: 0.85; display: block; }
+  .hero-subtitle { font-size: 15px; opacity: 0.8; line-height: 1.7; margin-bottom: 28px; max-width: 560px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-scroll { margin-top: 48px; display: flex; align-items: center; gap: 8px; font-size: 11px; opacity: 0.6; }
+  .scroll-arrow { width: 24px; height: 24px; border: 1px dashed rgba(255,255,255,0.6); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  
+  /* SECTION: Trust bar */
+  .trust-bar { background: #fff; border-bottom: 1px solid #ddd; padding: 16px 0; }
+  .trust-inner { display: flex; align-items: center; justify-content: space-around; gap: 24px; }
+  .trust-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .trust-icon { width: 28px; height: 28px; background: #e0e0e0; border: 1px solid #bbb; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 11px; }
+  .trust-divider { width: 1px; height: 28px; background: #ddd; }
+  
+  /* SECTION: Section generic */
+  .section { padding: 72px 0; }
+  .section-header { margin-bottom: 48px; max-width: 600px; }
+  .section-overline { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 8px; display: block; }
+  .section-title { font-size: 36px; margin-bottom: 12px; }
+  .section-desc { font-size: 14px; color: #666; line-height: 1.6; }
+  
+  /* SECTION: Areas grid - 4 col */
+  .areas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .area-card { border: 1px dashed #bbb; background: #fafafa; padding: 24px 20px; }
+  .area-icon { width: 44px; height: 44px; background: #e0e0e0; border: 1px solid #bbb; border-radius: 50%; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; }
+  .area-card h4 { font-size: 15px; margin-bottom: 10px; }
+  .area-card p { font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 14px; }
+  .card-link-wf { font-size: 12px; color: #555; font-weight: bold; text-decoration: underline; }
+  
+  /* SECTION: Stats bar */
+  .stats-bar { background: #333; color: #fff; padding: 40px 0; }
+  .stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; }
+  .stat-item { padding: 16px; border-right: 1px dashed rgba(255,255,255,0.2); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-size: 42px; font-weight: bold; margin-bottom: 4px; }
+  .stat-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; }
+  
+  /* SECTION: Office */
+  .office { background: #e8e8e8; padding: 72px 0; }
+  .office-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .office-img { aspect-ratio: 4/5; background: #ccc; border: 1px solid #bbb; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #666; }
+  
+  /* SECTION: Insights */
+  .insights-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .insight-card { border: 1px dashed #bbb; background: #fff; overflow: hidden; }
+  .insight-img { aspect-ratio: 16/9; background: #ccc; border-bottom: 1px solid #bbb; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #666; }
+  .insight-body { padding: 20px; }
+  .insight-body h4 { font-size: 16px; margin: 8px 0; }
+  .insight-body p { font-size: 12px; color: #666; margin-bottom: 12px; line-height: 1.5; }
+  
+  /* SECTION: CTA band */
+  .cta-band { background: #555; padding: 56px 0; color: #fff; text-align: center; }
+  .cta-band h3 { font-size: 28px; margin-bottom: 12px; }
+  .cta-band p { font-size: 14px; opacity: 0.75; margin-bottom: 28px; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; }
+  
+  /* SECTION: Footer */
+  .footer { background: #222; color: #ccc; padding: 56px 0 24px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px dashed rgba(255,255,255,0.15); }
+  .footer-brand-wf h2 { font-size: 24px; color: #fff; margin-bottom: 8px; }
+  .footer-brand-wf p { font-size: 12px; opacity: 0.6; line-height: 1.6; }
+  .footer-col h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 13px; margin-bottom: 10px; color: #aaa; text-decoration: underline; }
+  .footer-bottom-wf { display: flex; justify-content: space-between; align-items: center; font-size: 12px; opacity: 0.5; }
+  
+  /* Annotation boxes */
+  .annotation { border: 2px dashed #FF9800; background: rgba(255,152,0,0.05); padding: 6px 10px; font-size: 11px; color: #e65100; margin: 4px 0; font-family: Arial, sans-serif; }
+  .annotation::before { content: '✎ '; }
+  
+  /* Float button */
+  .float-btn { position: fixed; bottom: 24px; right: 24px; width: 52px; height: 52px; background: #555; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; border: 2px dashed #fff; z-index: 200; text-align: center; line-height: 1.2; padding: 4px; }
+  
+  /* Mobile note */
+  .mobile-note { background: #f5f5f5; border: 1px solid #ddd; padding: 12px 16px; margin: 16px 0; font-size: 12px; color: #555; }
+  .mobile-note::before { content: '📱 Mobile: '; font-weight: bold; }
+  
+  @media (max-width: 900px) {
+    .areas-grid { grid-template-columns: repeat(2, 1fr); }
+    .office-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .hero-title { font-size: 36px; }
+    .trust-inner { flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Legend -->
+<div class="legend">
+  <h4>Legenda</h4>
+  <p><span class="badge-reuse">REUSE</span> Componente existente</p>
+  <p><span class="badge-new">NEW</span> Componente novo</p>
+</div>
+
+<!-- Option Banner -->
+<div class="option-banner">
+  <h1>Opção 1 — Conservadora</h1>
+  <p>Estrutura atual otimizada · Corrige issues críticos · Adiciona Trust Bar e CTA Band · Stats expandidos · Sem reestruturação profunda</p>
+</div>
+
+<!-- Skip to content — NEW -->
+<!-- NEW COMPONENT: SkipLink -->
+<div class="comp">
+  <span class="comp-badge new">[NEW] SkipLink</span>
+  <a class="skip-link" href="#main-content">↓ Pular para o conteúdo principal</a>
+</div>
+
+<!-- ==================== NAVBAR ==================== -->
+<!-- REUSABLE: .navbar + .brand + .nav-links -->
+<div class="comp">
+  <span class="comp-badge reuse">[REUSE] Navbar</span>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="brand-box">
+        <!-- FIX #11: Brand usa h2, hero usa h1 -->
+        <p>PEROZIM</p>
+        <span>SOCIEDADE DE ADVOGADOS</span>
+      </div>
+      <div class="nav-links-wf">
+        <span class="nav-link-wf">Áreas de Atuação</span>
+        <span class="nav-link-wf">O Escritório</span>
+        <span class="nav-link-wf">Inteligência Jurídica</span>
+        <!-- FIX #13: Rótulo padronizado em todas as páginas -->
+        <span class="wf-btn-primary">Contato</span>
+      </div>
+      <div style="font-size: 20px; display: none;">☰ [hamburger]</div>
+    </div>
+    <div class="annotation">FIX #8: Hamburger → CSS X animation. FIX #13: Rótulo CTA padronizado "Contato" em todas páginas. FIX #11: Brand vira &lt;h2&gt;, hero título vira &lt;h1&gt;.</div>
+  </nav>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<!-- REUSABLE: .hero + .hero-content -->
+<div class="comp" id="main-content">
+  <span class="comp-badge reuse">[REUSE] Hero Section</span>
+  <section class="hero">
+    <div class="hero-img-bg"></div>
+    <div class="container hero-content-wf">
+      <div class="wf-tag">Advocacia Estratégica · Campinas, SP</div>
+      <h1 class="hero-title">
+        Decisões Empresariais<br>
+        <em>de Alto Impacto</em>
+      </h1>
+      <p class="hero-subtitle">Atuamos antes do conflito, da assinatura e do prejuízo. Uma banca especializada em soluções jurídicas complexas e proteção patrimonial inabalável.</p>
+      <div class="hero-actions">
+        <!-- FIX #9: background-attachment: fixed removido -->
+        <span class="wf-btn-primary">Conheça nossas áreas</span>
+        <!-- FIX #19: btn-secondary--light classe CSS, sem inline style -->
+        <span class="wf-btn-secondary" style="color:#fff; border-color: rgba(255,255,255,0.5);">Nosso Escritório</span>
+      </div>
+      <div class="hero-scroll">
+        <div class="scroll-arrow">↓</div>
+        <span>Rolar para explorar</span>
+      </div>
+    </div>
+  </section>
+  <div class="annotation">FIX #9: Remove background-attachment:fixed (iOS e performance). FIX #11: Título vira &lt;h1&gt;. FIX #19: btn-secondary--light como classe CSS.</div>
+</div>
+
+<!-- ==================== TRUST BAR (NEW) ==================== -->
+<!-- NEW COMPONENT: TrustBar — resolve ausência de social proof inicial -->
+<div class="comp">
+  <span class="comp-badge new">[NEW] TrustBar</span>
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-inner">
+        <div class="trust-item">
+          <div class="trust-icon">✓</div>
+          <span>+20 anos de atuação</span>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="trust-icon">⚖</div>
+          <span>TJSP e Tribunais Superiores</span>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="trust-icon">🏢</div>
+          <span>Sede em Campinas / SP</span>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="trust-icon">★</div>
+          <span>Consultoria B2B e B2C</span>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="trust-icon">🔒</div>
+          <span>100% Proteção Pré-Litígio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ÁREAS DE ATUAÇÃO ==================== -->
+<!-- REUSABLE: .areas-grid + .area-card -->
+<div class="comp">
+  <span class="comp-badge reuse">[REUSE] AreasGrid + AreaCard</span>
+  <section class="section" id="atuacao">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-overline">Expertise</span>
+        <h2 class="section-title">Nossas 8 Grandes Áreas de Atuação</h2>
+        <p class="section-desc">Desenvolvemos nossas atividades focados em blindar e alavancar os negócios e a vida dos nossos clientes de forma estratégica.</p>
+      </div>
+      <div class="areas-grid">
+        <!-- FIX #15: card-icon margin-bottom: var(--space-sm) não --space-md -->
+        <div class="area-card">
+          <div class="area-icon">[⚖]</div>
+          <h4>Consultoria Jurídica Integrada</h4>
+          <p>Prevenção de passivos focado em contratos comerciais, otimização e elisão tributária...</p>
+          <a class="card-link-wf">Falar com especialista →</a>
+        </div>
+        <div class="area-card">
+          <div class="area-icon">[≡]</div>
+          <h4>Contencioso Processual</h4>
+          <p>Visão empresarial e agilidade na gestão de processos judiciais e administrativos...</p>
+          <a class="card-link-wf">Falar com especialista →</a>
+        </div>
+        <div class="area-card">
+          <div class="area-icon">[📄]</div>
+          <h4>Pareceres Técnicos</h4>
+          <p>Suporte completo no Direito Administrativo para licitações e concursos...</p>
+          <a class="card-link-wf">Falar com especialista →</a>
+        </div>
+        <div class="area-card">
+          <div class="area-icon">[👥]</div>
+          <h4>Solução de Conflitos</h4>
+          <p>Mediação Extrajudicial como ferramenta ágil, dispensando a morosidade do Estado...</p>
+          <a class="card-link-wf">Falar com especialista →</a>
+        </div>
+        <div class="area-card">
+          <div class="area-icon">[📈]</div>
+          <h4>Recuperação de Crédito (PRC)</h4>
+          <p>Sistema especializado para retomada tática de valores em inadimplência...</p>
+          <a class="card-link-wf">Falar com especialista →</a>
+        </div>
+        <div class="area-card">
+          <div class="area-icon">[🏠]</div>
+          <h4>Recuperação Imobiliária (PRCI)</h4>
+          <p>Ação desenhada para Administradoras de Imóveis: foco na recuperação de aluguéis...</p>
+          <a class="card-link-wf">Falar com especialista →</a>
+        </div>
+        <div class="area-card">
+          <div class="area-icon">[💰]</div>
+          <h4>Empresarial Bancário</h4>
+          <p>Defesa avançada face às Instituições Financeiras. Revisões contratuais...</p>
+          <a class="card-link-wf">Falar com especialista →</a>
+        </div>
+        <div class="area-card">
+          <div class="area-icon">[🛡]</div>
+          <h4>Responsabilidade Civil</h4>
+          <p>Defesa técnica rigorosa contra demandas infundadas em erro médico, falhas de serviço...</p>
+          <a class="card-link-wf">Falar com especialista →</a>
+        </div>
+      </div>
+      <div class="annotation">FIX #15: card-icon margin-bottom reduzido para --space-sm. FIX #12: focus-visible em card-links.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== STATS BAR (EXPANDED) ==================== -->
+<!-- NEW COMPONENT: StatsBar — expande os 2 stats existentes para 4 e destaca mais -->
+<div class="comp">
+  <span class="comp-badge new">[NEW] StatsBar (expande .stats)</span>
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <div class="stat-num">20</div>
+          <div class="stat-lbl">Anos de Autoridade</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">8</div>
+          <div class="stat-lbl">Áreas de Especialização</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-lbl">Proteção Pré-Litígio</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">TJSP</div>
+          <div class="stat-lbl">+ Tribunais Superiores</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== O ESCRITÓRIO ==================== -->
+<!-- REUSABLE: .office + .office-wrapper -->
+<div class="comp">
+  <span class="comp-badge reuse">[REUSE] OfficeSection</span>
+  <section class="office" id="equipe">
+    <div class="container">
+      <div class="office-grid">
+        <div>
+          <span class="section-overline">DNA &amp; Liderança</span>
+          <h2 class="section-title">O Escritório</h2>
+          <p class="section-desc" style="margin-bottom:16px;">Fundada em <strong>2004</strong> e com ampla atuação estratégica, a <strong>PEROZIM Sociedade de Advogados</strong> foi projetada para ir muito além de uma banca tradicional.</p>
+          <p class="section-desc">Sob atuação focada e técnica no TJSP e Tribunais Superiores, garantimos que a teoria tática da advocacia corporativa consiga criar barreiras intransponíveis.</p>
+          <div style="margin-top: 28px;">
+            <span class="wf-btn-primary">Agendar Consulta</span>
+          </div>
+        </div>
+        <!-- FIX #5: loading="lazy" na imagem -->
+        <div class="wf-img office-img">[Foto Dr. Eduardo · loading="lazy" · object-fit: cover]</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== INSIGHTS ==================== -->
+<!-- REUSABLE: .insights-grid + .insight-card -->
+<div class="comp">
+  <span class="comp-badge reuse">[REUSE] InsightsGrid + InsightCard</span>
+  <section class="section" id="insights">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-overline">Radar Corporativo</span>
+        <h2 class="section-title">Inteligência Jurídica</h2>
+        <p class="section-desc">Conteúdo tático e decisões essenciais dos tribunais que empresários, CEOs e gestores precisam monitorar.</p>
+      </div>
+      <div class="insights-grid">
+        <!-- FIX #26: insight-card com border/background explícito -->
+        <div class="insight-card">
+          <div class="wf-img insight-img">[Imagem artigo 16:9 · loading="lazy"]</div>
+          <div class="insight-body">
+            <span class="wf-tag">Empresarial Imobiliário</span>
+            <h4>Cláusulas Resolutivas nos Contratos Comerciais de Locação</h4>
+            <p>Uma análise profunda sobre como blindar seu fluxo de caixa na administração de bens focando na prevenção processual.</p>
+            <a class="card-link-wf">Ler Artigo Completo →</a>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="wf-img insight-img">[Imagem artigo 16:9 · loading="lazy"]</div>
+          <div class="insight-body">
+            <span class="wf-tag">Trabalhista e Societário</span>
+            <h4>Prevenção vs. Contencioso: Desconsideração da Personalidade Jurídica</h4>
+            <p>Como isolar o patrimônio dos sócios e gerir o passivo trabalhista em tempos de crises e disputas.</p>
+            <a class="card-link-wf">Ler Artigo Completo →</a>
+          </div>
+        </div>
+      </div>
+      <div class="annotation">FIX #26: InsightCards ganham fundo branco + border explícito para separação visual. FIX #5: lazy loading nas imagens.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CTA BAND (NEW) ==================== -->
+<!-- NEW COMPONENT: CTABand — CTA de conversão dedicado antes do footer -->
+<div class="comp">
+  <span class="comp-badge new">[NEW] CTABand</span>
+  <div class="cta-band">
+    <div class="container">
+      <h3>Pronto para blindar o seu patrimônio?</h3>
+      <p>Entre em contato com a nossa equipe especializada e agende uma consulta estratégica.</p>
+      <div class="cta-actions">
+        <span class="wf-btn-primary" style="background:#fff; color:#333;">Falar no WhatsApp</span>
+        <span class="wf-btn-secondary" style="border-color:rgba(255,255,255,0.5); color:#fff;">Ver localização</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<!-- REUSABLE: .footer -->
+<div class="comp">
+  <span class="comp-badge reuse">[REUSE] Footer</span>
+  <footer class="footer" id="contato">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-wf">
+          <h2>PEROZIM</h2>
+          <p>Sociedade de Advogados · Soluções Jurídicas. A inteligência acadêmica combinada à máxima proteção tática do seu patrimônio corporativo e pessoal.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <a>Áreas de Atuação</a>
+          <a>O Escritório</a>
+          <a>Inteligência Jurídica</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contato e Localização</h4>
+          <a>📍 Rua Gaspar de Lemos, 37 · Taquaral · Campinas SP</a>
+          <a>✉ contato@perozim.com.br</a>
+          <a>📱 (19) 99318-1863</a>
+          <a>📞 +55 19 3342-8610</a>
+        </div>
+      </div>
+      <!-- FIX #2: Apenas 1 tag </footer> -->
+      <div class="footer-bottom-wf">
+        <span>© 2026 PEROZIM Sociedade de Advogados. Todos os direitos reservados.</span>
+        <span>
+          <a style="color:#888; text-decoration:underline; margin-left:16px;">Termos de Uso</a>
+          <a style="color:#888; text-decoration:underline; margin-left:16px;">Política de Privacidade</a>
+        </span>
+      </div>
+      <div class="annotation">FIX #2: Tag </footer> duplicada removida. FIX #16: Scroll suave via CSS apenas (remove JS duplicado).</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ==================== COOKIE BANNER (FIXED) ==================== -->
+<!-- REUSABLE: .cookie-consent-bar (behavior fixed) -->
+<div class="comp">
+  <span class="comp-badge new">[NEW] CookieBanner (behavior fix)</span>
+  <div style="position:fixed; bottom:0; left:0; right:0; background:#222; color:#ccc; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; gap:16px; border-top:1px dashed #555; z-index:9000; font-size:12px;">
+    <p style="margin:0; max-width: 700px; line-height:1.5;">
+      <strong>Privacidade:</strong> Utilizamos cookies técnicos para funcionamento do site. 
+      <a style="color:#aaa; text-decoration:underline;">Política de Privacidade</a>
+    </p>
+    <div style="display:flex; gap:10px; flex-shrink:0;">
+      <span class="wf-btn-secondary" style="padding:6px 14px; font-size:12px; color:#ccc; border-color:#666;">Necessários</span>
+      <span class="wf-btn-primary" style="padding:6px 14px; font-size:12px;">Aceitar</span>
+    </div>
+    <!-- FIX #1: Banner mais compacto — não cobre hero. PR-right: 90px para WhatsApp -->
+  </div>
+  <div class="annotation" style="position:fixed; bottom:50px; left:0; right:0; z-index:9001; padding:4px 24px; background:rgba(255,152,0,0.9); color:#fff; font-size:11px; font-family:Arial;">
+    FIX #1: Banner reduzido para 1 linha + botões side-by-side. Não cobre mais o hero no mobile. FIX #17: padding-right:90px libera botão WhatsApp.
+  </div>
+</div>
+
+<!-- Float WhatsApp -->
+<!-- REUSABLE: .whatsapp-float -->
+<div class="float-btn">WA</div>
+
+<div class="mobile-note">Na versão mobile: single column grid, hamburguer menu com X animation, cookie banner 1 linha no topo (não bottom), imagens lazy, botão WA não sobrepõe.</div>
+
+</body>
+</html>

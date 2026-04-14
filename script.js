@@ -1,0 +1,162 @@
+/**
+ * PEROZIM ADVOGADOS - TASTE SKILL JS
+ * Vanilla JS Interaction layer. Plug and play.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Scrolled Navbar State
+    const navbar = document.querySelector('.navbar');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // 2. Mobile Menu Toggle
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const hamburger = document.querySelector('.hamburger');
+    let menuOpen = false;
+
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            navLinks.classList.toggle('active');
+
+            // Hamburger animation effect class trigger
+            if (menuOpen) {
+                menuBtn.classList.add('is-active');
+                menuBtn.setAttribute('aria-expanded', 'true');
+            } else {
+                menuBtn.classList.remove('is-active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // Close menu on link click
+    document.querySelectorAll('.nav-link, .btn-primary').forEach(link => {
+        link.addEventListener('click', () => {
+            if (menuOpen) {
+                menuBtn.click(); // Trigger close
+            }
+        });
+    });
+
+    // 3. Intersection Observer for Fade-In Elements
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const appearOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            } else {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, appearOptions);
+
+    fadeElements.forEach(el => {
+        appearOnScroll.observe(el);
+    });
+
+    // 4. Smooth scrolling mitigado e passado nativamente para CSS
+    // 5. Legal Modals LGPD Logic
+    const openModalBtns = document.querySelectorAll('.open-modal');
+    const closeModalBtns = document.querySelectorAll('.close-modal');
+    const modalOverlays = document.querySelectorAll('.legal-modal-overlay');
+
+    openModalBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = btn.getAttribute('data-target');
+            const targetModal = document.getElementById(targetId);
+            if (targetModal) {
+                targetModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('.legal-modal-overlay');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+
+    modalOverlays.forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            modalOverlays.forEach(overlay => {
+                if (overlay.classList.contains('active')) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+    });
+
+    // 6. Cookie Consent LocalStorage Logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const btnAcceptAll = document.getElementById('btn-accept-all');
+    const btnAcceptNecessary = document.getElementById('btn-accept-necessary');
+
+    // Mostra o painel com 2s de atraso caso o usuário nunca o tenha aceitado localmente
+    if (cookieBanner && !localStorage.getItem('perozim_cookie_consent')) {
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+            document.body.classList.add('has-cookie-banner');
+        }, 2000);
+    }
+
+    const closeCookieBanner = (preference) => {
+        localStorage.setItem('perozim_cookie_consent', preference);
+        cookieBanner.classList.remove('show');
+        document.body.classList.remove('has-cookie-banner');
+    };
+
+    if (btnAcceptAll) {
+        btnAcceptAll.addEventListener('click', () => closeCookieBanner('all'));
+    }
+
+    if (btnAcceptNecessary) {
+        btnAcceptNecessary.addEventListener('click', () => closeCookieBanner('necessary'));
+    }
+
+    // Disparador manual para abrir a Modal diretamente do Banner de Cookie
+    const cookieModalLink = document.getElementById('cookie-policy-link');
+    if (cookieModalLink) {
+        cookieModalLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = cookieModalLink.getAttribute('data-target');
+            const targetModal = document.getElementById(targetId);
+            if (targetModal) {
+                targetModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
+
+});

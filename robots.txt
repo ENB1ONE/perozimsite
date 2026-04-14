@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Evitando que o Google mapeie páginas irrelevantes (quando e se você adicionar mais páginas)
+Disallow: /cgi-bin/
+Disallow: /painel/
+Disallow: /*.pdf$
+
+# Diretriz para o Sitemap
+Sitemap: https://www.perozim.com.br/sitemap.xml
