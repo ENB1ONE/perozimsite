@@ -47,10 +47,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px;
   font-size: 16px;
-  scroll-snap-type: y mandatory;
+  scroll-padding-top: 100px;
 }
 
 body {
@@ -804,7 +802,6 @@ svg {
   min-height: 100vh; /* Harmonização vertical total */
   background-color: var(--color-white-ice);
   position: relative;
-  scroll-snap-align: start; /* Travamento do scroll */
 }
 
 .split-col {

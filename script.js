@@ -1,9 +1,25 @@
-/**
- * PEROZIM ADVOGADOS - TASTE SKILL JS
- * Vanilla JS Interaction layer. Plug and play.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
+
+    // 0. Initialize Lenis (Smooth Scroll) - Modo Líquido Zero Atrito
+    const lenis = new Lenis({
+        duration: 1.5,
+        lerp: 0.1, // Suavidade extrema na desaceleração
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
 
     // 1. Scrolled Navbar State
     const navbar = document.querySelector('.navbar');
@@ -158,5 +174,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 7. Lenis Anchor Link Support
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#' || targetId === '') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                lenis.scrollTo(targetElement, {
+                    offset: -100, // Ajuste para o header fixo
+                    duration: 1.5,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                });
+            }
+        });
+    });
 
 });
