@@ -193,4 +193,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 8. Security Alert Logic (Anti-Golpe)
+    const securityAlert = document.getElementById('security-alert');
+    const closeSecurityAlertBtn = document.getElementById('close-security-alert');
+
+    const checkSecurityDisplay = () => {
+        // 1. Verifica se foi um refresh (F5)
+        const navigationType = performance.getEntriesByType("navigation")[0]?.type;
+        const isReload = navigationType === 'reload';
+
+        // 2. Verifica se veio de fora (URL direta ou site externo)
+        // Se o referer não contiver o nosso host, é uma entrada "nova"
+        const isDirectEntry = !document.referrer || !document.referrer.includes(window.location.hostname);
+
+        // Mostra o alerta se for REFRESH ou ENTRADA DIRETA
+        if (securityAlert && (isReload || isDirectEntry)) {
+            setTimeout(() => {
+                securityAlert.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 200); // Reduzido para 200ms (quase instantâneo)
+        }
+    };
+
+    if (securityAlert) {
+        checkSecurityDisplay();
+    }
+
+    const dismissAlert = () => {
+        if (securityAlert) {
+            securityAlert.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    if (closeSecurityAlertBtn) {
+        closeSecurityAlertBtn.addEventListener('click', dismissAlert);
+    }
+
+    if (securityAlert) {
+        securityAlert.addEventListener('click', (e) => {
+            if (e.target === securityAlert) {
+                dismissAlert();
+            }
+        });
+    }
+
 });
+
+
