@@ -462,6 +462,10 @@ svg {
   flex-shrink: 0;
 }
 
+.split-content .section-desc {
+  margin-bottom: 2.5rem;
+}
+
 @media (max-width: 480px) {
   .section-title::before {
     width: 25px; /* Reduzido para evitar que o título empurre a linha para fora no mobile */
@@ -756,13 +760,12 @@ svg {
 
 .presenca-info-column .section-title::before {
   content: "";
-  position: absolute;
-  right: calc(100% + 20px);
-  top: 50%;
-  transform: translateY(-50%);
+  display: inline-block;
   width: 45px;
   height: 2px;
   background-color: var(--color-blue-accent);
+  margin-right: 15px;
+  flex-shrink: 0;
 }
 
 .presenca-articles-column {
@@ -922,6 +925,29 @@ svg {
   background-size: cover;
   background-position: center;
   min-height: 100%; /* Imagem ocupa todo o quadro vertical */
+  position: relative; /* Adicionado para conter o vídeo background */
+  overflow: hidden;   /* Adicionado para conter o vídeo background */
+}
+
+.bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 23, 50, 0.15); /* Overlay suave para integração de cor */
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* Intelligence Items (Compact) */
