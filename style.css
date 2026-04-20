@@ -462,6 +462,13 @@ svg {
   flex-shrink: 0;
 }
 
+@media (max-width: 480px) {
+  .section-title::before {
+    width: 25px; /* Reduzido para evitar que o título empurre a linha para fora no mobile */
+    margin-right: 10px;
+  }
+}
+
 .section-desc {
   font-size: clamp(1.05rem, 2.5vw, 1.15rem);
   color: var(--color-gray-text);
@@ -726,72 +733,160 @@ svg {
   transform: scale(1.05);
 }
 
-/* Insights / Presença Section */
-.insights-grid {
+/* Insights / Presença Section - SPLIT LAYOUT */
+#presenca {
+  background-color: var(--color-white-ice);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 60px 0;
+}
+
+.presenca-split-layout {
+  display: flex;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+
+.presenca-info-column {
+  flex: 0 0 380px;
+  text-align: left;
+}
+
+.presenca-info-column .section-title::before {
+  content: "";
+  position: absolute;
+  right: calc(100% + 20px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 2px;
+  background-color: var(--color-blue-accent);
+}
+
+.presenca-articles-column {
+  flex: 1;
+}
+
+.insights-grid-split {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
 }
 
-@media (min-width: 800px) {
-  .insights-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.insight-card {
+.insight-card-compact {
+  background-color: transparent;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
-  border-radius: var(--radius-md);
-  padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  overflow: hidden;
-  transition: all 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
-.insight-card:hover {
+.insight-card-compact:hover {
   transform: translateY(-5px);
 }
 
-.insight-img-wrapper {
+.insight-image {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Proporção que respeita melhor as fotos originais sem ser "tira" */
   overflow: hidden;
-  border-radius: var(--radius-sm);
-  margin-bottom: var(--space-sm);
-  aspect-ratio: 16/9;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  background: #f8f9fa;
 }
 
-.insight-img-wrapper img {
+.insight-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  object-fit: cover; /* Ajustado para preencher o 4:3 com o mínimo de corte */
 }
 
-.insight-card:hover .insight-img-wrapper img {
-  transform: scale(1.05);
-}
-
-.insight-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.insight-tag {
+.insight-body .insight-tag {
   color: var(--color-blue-accent);
-  font-size: 0.8rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.insight-body h4 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-blue-dark);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.insight-body p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  color: #4a4a4a;
+}
+
+.insight-link {
+  font-size: 0.75rem;
+  color: var(--color-blue-accent);
+  text-decoration: none;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.insight-content h4 {
-  font-size: 1.4rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.3;
+@media (max-width: 1200px) {
+  .presenca-split-layout {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  #presenca {
+    height: auto;
+    padding: 80px 0;
+  }
+  .presenca-split-layout {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .presenca-info-column {
+    flex: 1;
+    margin-bottom: 50px;
+  }
+  .insights-grid-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.insight-body p {
+  font-size: 1rem;
+  color: var(--color-gray-text);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.insight-link {
+  color: var(--color-blue-accent);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.insight-link .arrow {
+  transition: transform 0.3s ease;
+}
+
+.insight-link:hover .arrow {
+  transform: translateX(5px);
 }
 
 /* Split Section Layout (Sartori Style) */
@@ -902,7 +997,7 @@ svg {
   z-index: 10;
 }
 
-#quem-somos, #atuacao, #equipe, #presenca {
+#quem-somos, #atuacao {
   padding: 0;
   z-index: 5;
 }
@@ -1695,7 +1790,7 @@ svg {
   }
   
   .member-info {
-    padding: 0;
+    padding: 0 1.5rem; /* Aumentado o respiro lateral para não encostar na borda */
     margin-bottom: 40px;
   }
 }

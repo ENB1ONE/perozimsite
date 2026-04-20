@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Security Meta Tags -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline'; img-src 'self' https: data:; font-src 'self' https: fonts.gstatic.com; style-src 'self' https: 'unsafe-inline'; script-src 'self' https: 'unsafe-inline';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- Search Engine Optimization (SEO Avançado) -->
@@ -25,7 +25,7 @@
     <meta property="og:title" content="PEROZIM Advogados | Decisões Empresariais de Alto Impacto">
     <meta property="og:description"
         content="Atuamos antes do conflito, da assinatura e do prejuízo. Uma banca especializada em soluções jurídicas complexas e proteção patrimonial, com sede em Campinas.">
-    <meta property="og:image" content="https://perozim.com.br/assets/perozim_hero_sociedade_1776034317619.png">
+    <meta property="og:image" content="assets/perozim_facade_reception.png">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#031732">
     <link rel="icon" type="image/jpeg" href="assets/favicon.jpg">
@@ -141,7 +141,7 @@
         <!-- Sócios -->
         <section id="equipe" class="fade-in">
             <div class="container">
-                <div class="section-header" style="text-align: center; margin-bottom: 80px;">
+                <div class="section-header" style="margin-bottom: 80px;">
                     <span class="sub-heading">Expertise & Liderança</span>
                     <h3 class="section-title">Sócios</h3>
                 </div>
@@ -170,28 +170,53 @@
             </div>
         </section>
 
-        <!-- Presença -->
-        <section id="presenca" class="split-section fade-in">
-            <div class="split-col split-text">
-                <div class="split-content">
-                    <span class="sub-heading">Radar Corporativo</span>
-                    <h3 class="section-title">Inteligência Jurídica</h3>
-                    <p class="section-desc">Conteúdo tático e decisões essenciais dos tribunais que empresários, CEOs e gestores precisam monitorar.</p>
-                    <div class="insights-grid-compact">
-                        <article class="insight-item">
-                            <span class="insight-tag">Imobiliário</span>
-                            <h4>Cláusulas Resolutivas em Locação Comercial</h4>
-                            <a href="artigo-clausulas.html" class="card-link">Ler Artigo <span class="arrow">→</span></a>
-                        </article>
-                        <article class="insight-item">
-                            <span class="insight-tag">Societário</span>
-                            <h4>Desconsideração da Personalidade Jurídica</h4>
-                            <a href="artigo-desconsideracao.html" class="card-link">Ler Artigo <span class="arrow">→</span></a>
-                        </article>
+        <!-- Presença (Inteligência Jurídica) -->
+        <section id="presenca" class="section fade-in" style="scroll-margin-top: 120px;">
+            <div class="container-wide" style="padding: 0 50px;">
+                <div class="presenca-split-layout">
+                    <!-- Coluna de Informação (Esquerda) -->
+                    <div class="presenca-info-column">
+                        <span class="sub-heading" style="color: var(--color-blue-accent); font-weight: 700; margin-bottom: 0.3rem; font-size: 0.75rem;">Radar Corporativo</span>
+                        <h3 class="section-title" style="margin: 0; font-size: 2.2rem; position: relative;">Presença:</h3>
+                        <div class="presenca-manifesto" style="margin-top: 1.5rem;">
+                            <p class="section-desc" style="font-weight: 600; color: var(--color-blue-dark); margin-bottom: 0.8rem; font-size: 1rem;">Onde a experiência encontra voz, conteúdo e relevância.</p>
+                            <p class="section-desc" style="margin-bottom: 0.8rem; font-size: 0.9rem; line-height: 1.5;">A atuação do Perozim Sociedade de Advogados também se expressa fora das demandas formais: em debates, encontros estratégicos, produções de conteúdo e participações que contribuem para a reflexão jurídica e empresarial.</p>
+                            <p class="section-desc" style="font-size: 0.9rem; line-height: 1.5;">Mais do que estar presente, trata-se de gerar valor nos espaços em que decisões importantes são discutidas.</p>
+                        </div>
+                    </div>
+
+                    <!-- Coluna de Artigos (Direita) -->
+                    <div class="presenca-articles-column">
+                        <div class="insights-grid-split">
+                            <!-- Artigo 1 -->
+                            <article class="insight-card-compact">
+                                <div class="insight-image">
+                                    <img src="assets/perozim_insight_1776023920260.png" alt="Contratos de Locação" loading="lazy">
+                                </div>
+                                <div class="insight-body">
+                                    <span class="insight-tag">Empresarial Imobiliário</span>
+                                    <h4>Cláusulas Resolutivas nos Contratos Comerciais de Locação</h4>
+                                    <p>Uma análise profunda sobre como blindar seu fluxo de caixa na administração de bens focando na prevenção processual.</p>
+                                    <a href="artigo-clausulas.html" class="insight-link">Ler Artigo Completo <span class="arrow">→</span></a>
+                                </div>
+                            </article>
+
+                            <!-- Artigo 2 -->
+                            <article class="insight-card-compact">
+                                <div class="insight-image">
+                                    <img src="assets/desconsideracao-personalidade.jpg" alt="Desconsideração de Personalidade Jurídica" loading="lazy">
+                                </div>
+                                <div class="insight-body">
+                                    <span class="insight-tag">Trabalhista e Societário</span>
+                                    <h4>Prevenção vs. Contencioso: Desconsideração da Personalidade Jurídica</h4>
+                                    <p>Como isolar o patrimônio dos sócios e gerir o passivo trabalhista em tempos de crises e disputas.</p>
+                                    <a href="artigo-desconsideracao.html" class="insight-link">Ler Artigo Completo <span class="arrow">→</span></a>
+                                </div>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="split-col split-image" style="background-image: url('assets/perozim_insight_1776023920260.png');"></div>
         </section>
     </main>
 
