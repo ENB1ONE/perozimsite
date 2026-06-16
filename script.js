@@ -238,6 +238,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 9. Carregar Artigos Dinamicamente do data.json na Home
+    const loadFeaturedArticles = () => {
+        const container = document.getElementById('insights-grid-container');
+        if (!container) return;
+
+        fetch('data.json?t=' + Date.now())
+            .then(res => {
+                if (!res.ok) throw new Error('Não foi possível carregar os artigos.');
+                return res.json();
+            })
+            .then(data => {
+                const articles = data.articles || [];
+                const featuredIds = data.featured || [];
+                
+                if (articles.length === 0 || featuredIds.length !== 2) return;
+
+                let htmlContent = '';
+                featuredIds.forEach(id => {
+                    const art = articles.find(a => a.id === id);
+                    if (art) {
+                        htmlContent += `
+                            <article class="insight-card-compact">
+                                <div class="insight-image">
+                                    <img src="${art.image}" alt="${art.title}" loading="lazy">
+                                </div>
+                                <div class="insight-body">
+                                    <span class="insight-tag">${art.tag}</span>
+                                    <h4>${art.title}</h4>
+                                    <p>${art.desc}</p>
+                                    <a href="${art.link}" class="insight-link">Ler Artigo Completo <span class="arrow">→</span></a>
+                                </div>
+                            </article>
+                        `;
+                    }
+                });
+
+                if (htmlContent) {
+                    container.innerHTML = htmlContent;
+                }
+            })
+            .catch(err => {
+                console.warn('Usando fallback estático dos artigos:', err.message);
+            });
+    };
+
+    loadFeaturedArticles();
+
 });
 
 

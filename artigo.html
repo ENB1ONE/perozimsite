@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Carregando Artigo... - PEROZIM Advogados</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="brand" aria-label="Página Inicial Perozim">
+                <img src="./assets/logo_official.png" alt="Logotipo Perozim Sociedade de Advogados" class="brand-logo" width="230" height="73">
+            </a>
+            <button class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="nav-links">
+                <a href="index.html#atuacao" class="nav-link">Áreas de Atuação</a>
+                <a href="index.html#equipe" class="nav-link">O Escritório</a>
+                <a href="index.html#presenca" class="nav-link">Presença</a>
+                <a href="index.html#contato" class="btn-primary">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article class="container article-container fade-in" id="article-body-container" style="opacity: 0; transition: opacity 0.4s ease;">
+            <!-- Back button -->
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html#presenca"
+                    style="color: var(--color-blue-accent); font-weight: 600; display: flex; align-items: center; gap: 5px;">
+                    <span>&larr;</span> Voltar para Presença
+                </a>
+            </div>
+
+            <!-- Header -->
+            <header style="margin-bottom: 2.5rem;">
+                <span class="sub-heading" id="art-tag">-</span>
+                <h1 id="art-title"
+                    style="font-size: clamp(2rem, 4vw, 2.8rem); font-family: var(--font-serif); color: var(--color-blue-dark); margin-bottom: 1rem; line-height: 1.2;">
+                    -</h1>
+                <p style="color: var(--color-gray-text); font-size: 0.95rem; font-weight: 500;">
+                    <span id="art-author">-</span> &bull; <span id="art-readtime">-</span>
+                </p>
+            </header>
+
+            <img src="" alt="Imagem do Artigo" id="art-image" loading="lazy"
+                style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 2.5rem; display: none;">
+
+            <!-- Content -->
+            <div class="article-content" id="art-content">
+                <!-- Content injected here -->
+            </div>
+        </article>
+        
+        <!-- Error message if not found -->
+        <div class="container" id="error-container" style="display: none; padding: 5rem 2rem; text-align: center;">
+            <h2 style="font-family: var(--font-serif); color: var(--color-blue-dark); margin-bottom: 1rem;">Artigo não encontrado</h2>
+            <p style="color: var(--color-gray-text); margin-bottom: 2rem;">O artigo solicitado não foi encontrado ou foi removido.</p>
+            <a href="index.html#presenca" class="btn-primary">Voltar para a Home</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <div class="footer-copyright">
+                <p>&copy; 2026 PEROZIM Sociedade de Advogados. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Security Alert Card (Anti-Scam) -->
+    <div id="security-alert" class="security-alert-overlay">
+        <div class="security-alert-card">
+            <div class="security-alert-header">
+                <div class="header-main">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="alert-icon">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span>ALERTA DE SEGURANÇA</span>
+                </div>
+                <button id="close-security-alert" class="close-alert-btn" aria-label="Fechar alerta">&times;</button>
+            </div>
+            <div class="security-alert-body">
+                <p>A Equipe da <strong>PEROZIM Sociedade de Advogados</strong> não solicita nenhum tipo de pagamento por WhatsApp.</p>
+                <p class="security-callout">Em caso de dúvidas, entre em contato por meio do nosso telefone oficial: <span class="phone-highlight">(19) 99318-1863</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Loader Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get article ID from URL query param (?id=...)
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+
+            if (!articleId) {
+                showError();
+                return;
+            }
+
+            // Fetch data.json
+            fetch('data.json')
+                .then(res => res.json())
+                .then(data => {
+                    const article = (data.articles || []).find(a => a.id === articleId);
+                    if (article) {
+                        renderArticle(article);
+                    } else {
+                        showError();
+                    }
+                })
+                .catch(err => {
+                    console.error('Erro ao buscar artigo:', err);
+                    showError();
+                });
+
+            function renderArticle(art) {
+                document.getElementById('page-title').innerText = art.title + " - PEROZIM Advogados";
+                document.getElementById('art-tag').innerText = art.tag;
+                document.getElementById('art-title').innerText = art.title;
+                document.getElementById('art-author').innerText = art.author || "Equipe PEROZIM Sociedade de Advogados";
+                document.getElementById('art-readtime').innerText = art.readTime || "3 min de leitura";
+                
+                const imgElement = document.getElementById('art-image');
+                if (art.image) {
+                    imgElement.src = art.image;
+                    imgElement.alt = art.title;
+                    imgElement.style.display = 'block';
+                }
+
+                // Inject content HTML
+                document.getElementById('art-content').innerHTML = art.content || '';
+
+                // Show article container
+                const container = document.getElementById('article-body-container');
+                container.style.opacity = '1';
+                container.classList.add('visible');
+            }
+
+            function showError() {
+                document.getElementById('article-body-container').style.display = 'none';
+                document.getElementById('error-container').style.display = 'block';
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
